@@ -1,7 +1,6 @@
 <template>
   <main>
       <ContentQuery path="/articles" v-slot="{ data }">
-        {{JSON.stringify(data)}}
 
         <ContentRenderer :value="data" />
       </ContentQuery>
