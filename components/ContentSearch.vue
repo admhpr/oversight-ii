@@ -1,16 +1,27 @@
 <script setup lang="ts">
+import type { ParsedContent } from '@nuxt/content/dist/runtime/types';
+
 const props = defineProps({
   path: {
     type: String,
     required: true,
   },
 });
-function onInput({target: {value}}){
-    console.log('onInput', value)
+
+const search = ref('')
+const content = ref([]) as Ref<Pick<ParsedContent, string>[]>
+onMounted(async () => {
+  content.value = await getSearchContent(props.path)
+})
+
+async function getSearchContent(path: string) {
+  const result = await queryContent(path).only(["title", "description", "tags", "body"]).find()
+  return result
 }
 </script>
 <template>
-  <input @input="onInput">
+  <input v-model="search">
+  {{JSON.stringify(content)}}
   <ContentQuery :path="props.path">
     <template #default="{ data }">
       <ul>
