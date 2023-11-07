@@ -1,9 +1,6 @@
 <template>
   <main>
-      <ContentQuery path="/articles" v-slot="{ data }">
-
-        <ContentRenderer :value="data" />
-      </ContentQuery>
+      <ContentSearch path="articles"/>
       <nav>
           <ContentNavigation v-slot="{ navigation }">
           <ul>
